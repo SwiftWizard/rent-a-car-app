@@ -13,7 +13,7 @@ public class Authority implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long authorityId;
 
-    private String authority = "STANDARD_USER";
+    private String authority = "ROLE_STANDARD-USER";
 
     @Override
     public String getAuthority() {

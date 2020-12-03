@@ -15,7 +15,7 @@ public class JwtUtil {
 
     private String APP_NAME = "Rent a car application";
 
-    public String SECRET = "ourMegaSecret, psst!";
+    public String SECRET = "ourLittleSecret, psst!";
 
     private int EXPIRES_IN = 180; //Value represents minutes (so.. 3h)
 

@@ -1,5 +1,6 @@
 package com.rk.rentacarapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,7 +30,8 @@ public class Rent {
             inverseJoinColumns = @JoinColumn(name = "extra_extraId"))
     private Set<Extra> extras;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "vehicleId")
     private Vehicle vehicle;
 
     @OneToOne

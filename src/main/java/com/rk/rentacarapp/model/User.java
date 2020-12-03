@@ -8,11 +8,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.sql.Time;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -26,13 +26,22 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
 
-
+    @NotNull(message = "Please fill in your first name!")
     private String name;
+
+    @NotNull(message = "Please fill in your last name!")
     private String surname;
+
+    @Column(unique = true)
+    @NotNull(message = "Please fill in your email!")
+    @Email(message = "Please enter a valid email!")
     private String email;
+
+    @NotNull(message = "Please fill in your password")
+    //@Size(min=6, max = 100, message = "Password length must be at least 6 characters long, 100 characters is the maximum")
     private String password;
 
-    Timestamp lastPasswordResetDate;
+    private Timestamp lastPasswordResetDate;
 
     private boolean accountExpired;
     private boolean accountLocked;
@@ -45,11 +54,11 @@ public class User implements UserDetails {
     @JoinTable(name = "user_authority",
             joinColumns = @JoinColumn(name = "user_userId", referencedColumnName = "userId"),
             inverseJoinColumns = @JoinColumn(name = "authority_authorityId", referencedColumnName = "authorityId"))
-    private Set<Authority> authorities = new HashSet<>();
+    private Set<Authority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
